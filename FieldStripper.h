@@ -18,7 +18,7 @@ public:
 
     typedef QList<QList<QString> > StringTable;
 
-    void strip(QString searchText, StringTable table);
+    void strip(const SearchFields& sf, const QString &searchText, StringTable& table);
 
 signals:
     void foundField(SearchField, int location);
