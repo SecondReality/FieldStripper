@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>902</width>
+    <height>558</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#MainWindow
+{
+background-color: white;
+}
+
+QPushButton
+{
+color: white; 
+background-color: QLinearGradient( x1: 0, y1: 1, x2: 0, y2: 0, stop: 0 #5BAD0B, stop: 0.9 #9BCF50, stop: 1 #B5E553);
+border-width: 1px;
+border-color: #51890C;
+border-style: solid;
+border-radius: 4;
+padding: 3px;
+font-size: x-large;
+padding-left: 5px;
+padding-right: 5px;
+min-height: 20px;
+font-weight: bold;
+max-height: 20px;
+}
+
+QPushButton:disabled
+{
+	background-color: #F2F2F2;
+    border-color: #C6C6C6;
+    color: #333333;
+}
+
+ QGroupBox
+{
+	border: 0px;
+ font-size: 18px;
+    font-weight: bold;
+padding-top: 20px;
+}
+
+ QGroupBox::title
+{
+
+}
+
+QToolButton
+{
+ border: 1px solid #8f8f91;
+border-radius: 4;
+
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>10</y>
+      <width>461</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Preview</string>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Input File Preview</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="inputPreview"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Output File Preview</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTextEdit" name="textEdit"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QPushButton" name="convertButton">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>500</y>
+      <width>131</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Convert!</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_2">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>371</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Input File</string>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLineEdit" name="inputFilePathEdit"/>
+     </item>
+     <item>
+      <widget class="QPushButton" name="inputFileBrowseButton">
+       <property name="text">
+        <string>...</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>391</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Search Fields</string>
+    </property>
+    <widget class="QTableWidget" name="searchFieldsTable">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>70</y>
+       <width>351</width>
+       <height>301</height>
+      </rect>
+     </property>
+     <property name="rowCount">
+      <number>1</number>
+     </property>
+     <property name="columnCount">
+      <number>2</number>
+     </property>
+     <row/>
+     <column/>
+     <column/>
+    </widget>
+    <widget class="QToolButton" name="toolButton">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>30</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="toolTip">
+      <string>Add a new search field</string>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+     <property name="icon">
+      <iconset resource="resources.qrc">
+       <normaloff>:/graphics/add.png</normaloff>:/graphics/add.png</iconset>
+     </property>
+    </widget>
+    <widget class="QToolButton" name="toolButton_2">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>30</y>
+       <width>25</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>902</width>
+     <height>21</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>inputFileBrowseButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>browseForInputFile()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>358</x>
+     <y>84</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>toolButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>searchFieldsAddRow()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>59</x>
+     <y>173</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>203</x>
+     <y>116</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>searchFieldsTable</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>searchFieldsCellChanged(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>111</x>
+     <y>237</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>389</x>
+     <y>113</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>browseForInputFile()</slot>
+  <slot>searchFieldsAddRow()</slot>
+  <slot>searchFieldsCellChanged(int,int)</slot>
+ </slots>
+</ui>

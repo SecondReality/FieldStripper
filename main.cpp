@@ -1,4 +1,6 @@
-#include <QtCore/QCoreApplication>
+#include <QtGui/QApplication>
+#include "mainwindow.h"
+//#include <QtCore/QCoreApplication>
 
 #include <iostream>
 #include <QFile>
@@ -7,6 +9,14 @@
 
 int main(int argc, char *argv[])
 {
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+}
+
+/*
     std::cout << "----------------------------------" << std::endl;
     std::cout << "    Field stripper version 0.2" << std::endl;
     std::cout << "           by Steven Mark Rose" << std::endl;
@@ -124,41 +134,7 @@ int main(int argc, char *argv[])
         }
         results.push_back(row);
     }
-    /*
-    for(int i=0; i<searchFieldLengths.size(); i++)
-    {
-        QStringList words;
 
-        // search the string:
-        int from(0);
-        while(true)
-        {
-            int newIndex = tester.indexOf(searchFields[i], from);
-            if(newIndex==-1)
-            {
-                break;
-            }
-            else
-            {
-                // We found this string:
-                std::cout << "Found data:";
-
-                QString foundData = tester.mid(newIndex+searchFields[i].length(), searchFieldLengths[i]).trimmed();
-                std::cout << foundData.toStdString() << std::endl;
-                words.append(foundData);
-
-                // Advance from:
-                from=newIndex+1;
-                if(from>=tester.size())
-                {
-                    break;
-                }
-
-            }
-        }
-        results << words;
-    }
-    */
 
     std::cout << "Generating output file...";
 
@@ -180,3 +156,4 @@ int main(int argc, char *argv[])
 
     return 0;
 }
+*/
