@@ -34,33 +34,10 @@ void FieldStripper::strip(const SearchFields& sf, const QString &searchText, Str
             }
 
 
-            QString foundData = searchText.mid(newIndex+searchFields[i].length(), searchFieldLengths[i]).trimmed();
-            from = newIndex+searchFields[i].length()+searchFieldLengths[i];
-            std::cout << foundData.toStdString() << std::endl;
-            //words.append(foundData);
+            QString foundData = searchText.mid(newIndex+sf[i].searchText().length(), sf[i].fieldLength()).trimmed();
+            from = newIndex+sf[i].searchText().length()+sf[i].fieldLength();
             row[i]=foundData;
         }
         table.push_back(row);
     }
-
-
-    std::cout << "Generating output file...";
-
-    // Now create the resulting tab spaced file:
-    QFile output("out.txt");
-    output.open(QIODevice::WriteOnly);
-
-    for(int i=0; i<results.size(); i++)
-    {
-        for(int n=0; n<searchFieldLengths.size(); n++)
-        {
-            output.write(results[i][n].toAscii());
-            output.write("\t");
-        }
-        output.write("\r\n");
-    }
-
-    std::cout << "done!" << std::endl;
-
-    return 0;
 }
