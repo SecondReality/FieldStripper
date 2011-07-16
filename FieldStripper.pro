@@ -2,6 +2,7 @@
 # Project created by QtCreator 2009-11-11T18:05:16
 # -------------------------------------------------
 QT       += core gui
+QMAKE_CXXFLAGS += -std=c++0x
 
 TARGET = FieldStripper
 CONFIG += console

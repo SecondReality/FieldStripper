@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "FieldStripper.h"
 
 #include <QFileDialog>
 #include <QTextStream>
@@ -91,4 +92,30 @@ void MainWindow::searchFieldsCellChanged(int row, int column)
     // Pass these fields to the syntax highlighter;
     highlighter_.setSearchFields(sf);
     highlighter_.rehighlight();
+
+    //Create the column names of the preview table:
+
+    QStringList previewHeader;
+    foreach(auto field, sf)
+    {
+        previewHeader << field.searchText();
+    }
+    ui->outputPreview->clearContents();
+    ui->outputPreview->setColumnCount(sf.length());
+    ui->outputPreview->setHorizontalHeaderLabels(previewHeader);
+
+    // Populate the preview table:
+    FieldStripper f;
+    FieldStripper::StringTable st;
+    f.strip(sf, ui->inputPreview->toPlainText(), st);
+    ui->outputPreview->setRowCount(st.length());
+
+    for(int row=0; row<st.length(); row++)
+    {
+        for(int column=0; column<st[row].length(); column++)
+        {
+            QTableWidgetItem * w = new QTableWidgetItem(st[row][column].first);
+            ui->outputPreview->setItem(row, column, w);
+        }
+    }
 }

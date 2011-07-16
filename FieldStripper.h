@@ -4,6 +4,7 @@
 #include <QString>
 #include <QList>
 #include <QObject>
+#include <QPair>
 
 #include "SearchFields.h"
 
@@ -16,7 +17,8 @@ class FieldStripper : public QObject
 public:
     FieldStripper();
 
-    typedef QList<QList<QString> > StringTable;
+    typedef QPair<QString, int> FoundText; // Contains the found text, and the location it was found in the original document.
+    typedef QList<QList<FoundText> > StringTable;
 
     void strip(const SearchFields& sf, const QString &searchText, StringTable& table);
 

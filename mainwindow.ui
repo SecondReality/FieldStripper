@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>FieldStripper</string>
   </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow
@@ -98,7 +98,15 @@ border-radius: 4;
       </widget>
      </item>
      <item>
-      <widget class="QTextEdit" name="textEdit"/>
+      <widget class="QTableWidget" name="outputPreview">
+       <property name="rowCount">
+        <number>1</number>
+       </property>
+       <attribute name="verticalHeaderVisible">
+        <bool>true</bool>
+       </attribute>
+       <row/>
+      </widget>
      </item>
     </layout>
    </widget>
@@ -123,8 +131,8 @@ border-radius: 4;
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>371</width>
-      <height>81</height>
+      <width>391</width>
+      <height>91</height>
      </rect>
     </property>
     <property name="title">

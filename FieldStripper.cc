@@ -7,14 +7,19 @@ FieldStripper::FieldStripper()
 
 void FieldStripper::strip(const SearchFields& sf, const QString &searchText, StringTable& table)
 {
+    if(sf.length()==0)
+    {
+        return;
+    }
+
     int from(0);
     bool searching(true);
     while(searching && from<searchText.size())
     {
-        QStringList row;
+        QList<FoundText> row;
         for(int i=0; i<sf.size(); i++)
         {
-            row.push_back("");
+            row.push_back(FoundText("", -1));
         }
 
         for(int i=0; i<sf.size(); i++)
@@ -33,10 +38,11 @@ void FieldStripper::strip(const SearchFields& sf, const QString &searchText, Str
                 }
             }
 
-
             QString foundData = searchText.mid(newIndex+sf[i].searchText().length(), sf[i].fieldLength()).trimmed();
             from = newIndex+sf[i].searchText().length()+sf[i].fieldLength();
-            row[i]=foundData;
+
+            FoundText ft = FoundText(foundData, newIndex);
+            row[i]=ft;
         }
         table.push_back(row);
     }

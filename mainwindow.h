@@ -1,3 +1,4 @@
+#undef __STRICT_ANSI__
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
