@@ -1,3 +1,5 @@
+// datamine, LIS
+
 #ifndef FIELDSTRIPPER_H
 #define FIELDSTRIPPER_H
 

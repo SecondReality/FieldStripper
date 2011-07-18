@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>graphics/add.png</file>
+        <file>graphics/Delete.png</file>
+        <file>graphics/Save.png</file>
+        <file>graphics/Select.png</file>
+        <file>graphics/Load.png</file>
     </qresource>
 </RCC>

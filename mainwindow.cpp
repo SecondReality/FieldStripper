@@ -56,6 +56,27 @@ void MainWindow::searchFieldsAddRow()
     ui->searchFieldsTable->setRowCount(ui->searchFieldsTable->rowCount()+1);
 }
 
+void MainWindow::searchFieldsDeleteRow()
+{
+    ui->searchFieldsTable->removeRow(ui->searchFieldsTable->currentRow());
+}
+
+void MainWindow::searchFieldsLoad()
+{
+
+}
+
+void MainWindow::searchFieldsSave()
+{
+
+}
+
+void MainWindow::searchFieldsSelectionChanged()
+{
+    bool rowSelected = ui->searchFieldsTable->currentRow() != -1;
+    ui->deleteRowButton->setEnabled(rowSelected);
+}
+
 void MainWindow::searchFieldsCellChanged(int row, int column)
 {
     // Get the item text:
@@ -115,6 +136,7 @@ void MainWindow::searchFieldsCellChanged(int row, int column)
         for(int column=0; column<st[row].length(); column++)
         {
             QTableWidgetItem * w = new QTableWidgetItem(st[row][column].first);
+            w->setFlags(Qt::ItemIsSelectable|Qt::ItemIsEnabled);
             ui->outputPreview->setItem(row, column, w);
         }
     }

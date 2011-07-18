@@ -32,7 +32,7 @@ void PreviewHighlighter::highlightBlock(const QString & text)
             if(!ft.first.isEmpty())
             {
                 setFormat(ft.second, searchFields_[i].searchText().length(), foundText);
-                setFormat(ft.second+searchFields_[i].searchText().length(), ft.first.length(), extractedText);
+                setFormat(ft.second+searchFields_[i].searchText().length(), searchFields_[i].fieldLength(), extractedText);
             }
         }
     }

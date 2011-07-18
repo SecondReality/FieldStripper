@@ -23,6 +23,10 @@ private:
 private slots:
     void browseForInputFile();
     void searchFieldsAddRow();
+    void searchFieldsDeleteRow();
+    void searchFieldsLoad();
+    void searchFieldsSave();
+    void searchFieldsSelectionChanged();
     void searchFieldsCellChanged(int row, int column);
 };
 
