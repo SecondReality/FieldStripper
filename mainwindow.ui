@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>FieldStripper</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/graphics/Application.png</normaloff>:/graphics/Application.png</iconset>
+  </property>
   <property name="styleSheet">
    <string notr="true">#MainWindow
 {
@@ -91,7 +95,7 @@ padding-top: 20px;
              <property name="minimumSize">
               <size>
                <width>0</width>
-               <height>20</height>
+               <height>0</height>
               </size>
              </property>
              <property name="sizeIncrement">
@@ -145,7 +149,7 @@ padding-top: 20px;
                </rect>
               </property>
               <property name="toolTip">
-               <string>Add a new search field</string>
+               <string>Add a search field row</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-top-right-radius: 0px;
@@ -167,6 +171,9 @@ border-bottom-right-radius: 0px;</string>
                 <height>28</height>
                </rect>
               </property>
+              <property name="toolTip">
+               <string>Delete a search field row</string>
+              </property>
               <property name="styleSheet">
                <string notr="true">border-top-left-radius: 0px;
 border-bottom-left-radius: 0px;</string>
@@ -185,7 +192,7 @@ border-bottom-left-radius: 0px;</string>
                </rect>
               </property>
               <property name="toolTip">
-               <string>Add a new search field</string>
+               <string>Load search fields from a file</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-top-right-radius: 0px;
@@ -203,6 +210,9 @@ border-bottom-right-radius: 0px;</string>
                 <width>81</width>
                 <height>28</height>
                </rect>
+              </property>
+              <property name="toolTip">
+               <string>Save search fields to a file</string>
               </property>
               <property name="styleSheet">
                <string notr="true">border-top-left-radius: 0px;
@@ -237,6 +247,9 @@ border-bottom-left-radius: 0px;</string>
          <widget class="QPushButton" name="convertButton">
           <property name="enabled">
            <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>Save the result to a file</string>
           </property>
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
@@ -302,7 +315,7 @@ border-bottom-left-radius: 0px;</string>
               <number>0</number>
              </property>
              <attribute name="verticalHeaderVisible">
-              <bool>true</bool>
+              <bool>false</bool>
              </attribute>
             </widget>
            </item>
@@ -462,7 +475,7 @@ border-bottom-left-radius: 0px;</string>
    <sender>searchFieldsTable</sender>
    <signal>itemSelectionChanged()</signal>
    <receiver>MainWindow</receiver>
-   <slot>searchFieldsSelectionChange()</slot>
+   <slot>searchFieldsSelectionChanged()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>296</x>
@@ -483,6 +496,6 @@ border-bottom-left-radius: 0px;</string>
   <slot>searchFieldsLoad()</slot>
   <slot>searchFieldsSave()</slot>
   <slot>go()</slot>
-  <slot>searchFieldsSelectionChange()</slot>
+  <slot>searchFieldsSelectionChanged()</slot>
  </slots>
 </ui>

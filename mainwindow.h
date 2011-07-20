@@ -5,7 +5,10 @@
 #include <QMainWindow>
 #include <PreviewHighlighter.h>
 
-namespace Ui {
+#include "FieldStripper.h"
+
+namespace Ui
+{
     class MainWindow;
 }
 
@@ -18,8 +21,12 @@ public:
     ~MainWindow();
 
 private:
+    QString toCSV(const FieldStripper::StringTable &st);
     Ui::MainWindow *ui;
     PreviewHighlighter highlighter_;
+    QString inputFileContents_;
+    SearchFields searchFields_;
+
 private slots:
     void browseForInputFile();
     void searchFieldsAddRow();
@@ -28,6 +35,7 @@ private slots:
     void searchFieldsSave();
     void searchFieldsSelectionChanged();
     void searchFieldsCellChanged(int row, int column);
+    void go();
 };
 
 #endif // MAINWINDOW_H
