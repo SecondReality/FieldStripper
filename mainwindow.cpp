@@ -3,25 +3,60 @@
 
 #include <QFileDialog>
 #include <QTextStream>
+#include <QDir>
+#include <QDataStream>
 
 const int inputPreviewSize=4000;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    loading_(false)
 {
     ui->setupUi(this);
 
     QStringList headers;
     headers << "Search Text" << "Field Width";
     ui->searchFieldsTable->setHorizontalHeaderLabels(headers);
-
     highlighter_.setDocument(ui->inputPreview->document());
+
+    QSettings settings(getSettingsFilename(), QSettings::IniFormat);
+    QString inputFileName=settings.value("inputFileName").toString();
+    if(!inputFileName.isEmpty())
+    {
+        loadInputFile(translateSettingsPath(inputFileName));
+    }
+
+    QString filterFileName=settings.value("filterFileName").toString();
+    if(!filterFileName.isEmpty())
+    {
+        loadFilterFile(translateSettingsPath(filterFileName));
+    }
+
+    // Populate/update the output preview:
+    searchFieldsCellChanged(0, 0);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+QString MainWindow::translateSettingsPath(const QString inputFileName) const
+{
+    QFile file(inputFileName);
+    if(file.exists())
+    {
+        return inputFileName;
+    }
+    QDir applicationDir(QCoreApplication::applicationDirPath());
+    return applicationDir.filePath(inputFileName);
+}
+
+QString MainWindow::getSettingsFilename() const
+{
+    QDir applicationDir(QCoreApplication::applicationDirPath());
+    return applicationDir.filePath("settings.ini");
 }
 
 QString MainWindow::toCSV(const FieldStripper::StringTable &st)
@@ -42,13 +77,12 @@ QString MainWindow::toCSV(const FieldStripper::StringTable &st)
     return output;
 }
 
-void MainWindow::browseForInputFile()
+void MainWindow::loadInputFile(const QString& filename)
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open Input File"));
-    ui->inputFilePathEdit->setText(fileName);
+    ui->inputFilePathEdit->setText(filename);
 
     // Load the contents of the file into the input preview pane:
-    QFile file(fileName);
+    QFile file(filename);
 
     if(!file.open(QIODevice::ReadOnly))
     {
@@ -60,6 +94,9 @@ void MainWindow::browseForInputFile()
     }
 
     // The file is valid:
+    QSettings settings(getSettingsFilename(), QSettings::IniFormat);
+    settings.setValue("inputFileName", filename);
+
     // Enable the convert button:
     ui->convertButton->setEnabled(true);
     ui->outputPreview->setEnabled(true);
@@ -70,6 +107,65 @@ void MainWindow::browseForInputFile()
 
     // Limit the amount of text shown in the preview area:
     ui->inputPreview->setText(inputFileContents_.left(3000));
+}
+
+void MainWindow::loadFilterFile(const QString& filename)
+{
+       // set filterFilename_
+    QFile file(filename);
+
+    if(!file.open(QIODevice::ReadOnly))
+    {
+        // The file is invalid:
+        ui->convertButton->setEnabled(false);
+
+        //QMessageBox::information(0, "error", file.errorString());
+        // ???
+        return;
+    }
+
+    QDataStream out(&file);
+
+    searchFields_.clear();
+
+    int length;
+    out >> length;
+    for(int i=0; i<length; i++)
+    {
+        int fieldLength;
+        QString searchText;
+
+        out >> fieldLength;
+        out >> searchText;
+        searchFields_.push_back(SearchField(searchText, fieldLength));
+    }
+
+    // Populate the user interface:
+    ui->searchFieldsTable->clearContents();
+    ui->searchFieldsTable->setRowCount(searchFields_.length());
+
+    loading_=true;
+    for(int row=0; row<searchFields_.length(); row++)
+    {
+        QTableWidgetItem * w = new QTableWidgetItem(searchFields_[row].searchText());
+        ui->searchFieldsTable->setItem(row, 0, w);
+
+        QTableWidgetItem * fieldLength = new QTableWidgetItem(QString::number(searchFields_[row].fieldLength()));
+        ui->searchFieldsTable->setItem(row, 1, fieldLength);
+    }
+    loading_=false;
+
+    filterFilename_=filename;
+    QSettings settings(getSettingsFilename(), QSettings::IniFormat);
+    settings.setValue("filterFileName", filename);
+}
+
+void MainWindow::browseForInputFile()
+{
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Input File"));
+    loadInputFile(filename);
+    // Populate/update the output preview:
+    searchFieldsCellChanged(0, 0);
 }
 
 void MainWindow::searchFieldsAddRow()
@@ -84,12 +180,36 @@ void MainWindow::searchFieldsDeleteRow()
 
 void MainWindow::searchFieldsLoad()
 {
-
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Input File"), QString(), "Filter File (*.frf)");
+    loadFilterFile(filename);
 }
 
 void MainWindow::searchFieldsSave()
 {
+    if(filterFilename_.isEmpty())
+    {
+        // Display the SaveAs dialog:
+        QString fileName=QFileDialog::getSaveFileName(this, tr("Save File"), QString(), tr("Filter File (*.frf)"));
+        if(fileName.isEmpty())
+        {
+            return;
+        }
+        filterFilename_=fileName;
+    }
 
+    QFile file(filterFilename_);
+    file.open(QIODevice::WriteOnly);
+    QDataStream out(&file);
+
+    out << searchFields_.length();
+    foreach(const SearchField& sf, searchFields_)
+    {
+        out << sf.fieldLength();
+        out << sf.searchText();
+    }
+
+    QSettings settings(getSettingsFilename(), QSettings::IniFormat);
+    settings.setValue("filterFileName", filterFilename_);
 }
 
 void MainWindow::searchFieldsSelectionChanged()
@@ -100,8 +220,10 @@ void MainWindow::searchFieldsSelectionChanged()
 
 void MainWindow::searchFieldsCellChanged(int row, int column)
 {
-    // Get the item text:
-    //
+    if(loading_)
+    {
+        return;
+    }
 
     //Create the SearchFields:
     searchFields_.clear();

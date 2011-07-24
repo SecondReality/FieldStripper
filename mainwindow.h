@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <PreviewHighlighter.h>
+#include <QSettings>
 
 #include "FieldStripper.h"
 
@@ -21,11 +22,18 @@ public:
     ~MainWindow();
 
 private:
+    QString translateSettingsPath(const QString inputFileName) const;
+    QString getSettingsFilename() const;
     QString toCSV(const FieldStripper::StringTable &st);
+    void loadInputFile(const QString& filename);
+    void loadFilterFile(const QString& filename);
+
     Ui::MainWindow *ui;
     PreviewHighlighter highlighter_;
     QString inputFileContents_;
+    QString filterFilename_;
     SearchFields searchFields_;
+    bool loading_;
 
 private slots:
     void browseForInputFile();

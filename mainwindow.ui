@@ -112,7 +112,7 @@ padding-top: 20px;
               <bool>true</bool>
              </property>
              <property name="text">
-              <string>...</string>
+              <string>Browse...</string>
              </property>
             </widget>
            </item>
@@ -315,7 +315,7 @@ border-bottom-left-radius: 0px;</string>
               <number>0</number>
              </property>
              <attribute name="verticalHeaderVisible">
-              <bool>false</bool>
+              <bool>true</bool>
              </attribute>
             </widget>
            </item>
