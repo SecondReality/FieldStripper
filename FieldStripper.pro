@@ -5,7 +5,6 @@ QT       += core gui
 QMAKE_CXXFLAGS += -std=c++0x
 
 TARGET = FieldStripper
-CONFIG += console
 CONFIG -= app_bundle
 TEMPLATE = app
 SOURCES += main.cpp \
