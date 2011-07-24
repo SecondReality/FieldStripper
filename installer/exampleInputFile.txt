@@ -1,0 +1,9 @@
+Browser	Amaya	        Creator	W3C, INRIA	                                Cost (USD)Free	Yes	W3C	Amaya 
+Browser	AOL Explorer	Creator	America Online, Inc	                        Cost (USD)Free	No	Proprietary	Trident
+Browser	Arora	        Creator	Benjamin C. Meyer	                        Cost (USD)Free	Yes	GPL	WebKit 
+Browser	Avant	        Creator	Avant Force	                                Cost (USD)Free	No	Proprietary	Trident
+Browser	Camino	        Creator	The Camino Project	                        Cost (USD)Free	Yes	MPL, MPL/GPL/LGPL tri-license	Gecko 
+Browser	Chromium	Creator	Google	                                        Cost (USD)Free	Yes	BSD	WebKit
+Browser	Dillo	        Creator	Jorge Arellano Cid, Geerken, Rota, et al.	Cost (USD)Free	Yes	GPL	Dillo 
+Browser	DocZilla	Creator	CiTEC	                                        Cost (USD)Free for non-commercial use	Partial	Proprietary (browser), MPL/GPL/LGPL (Gecko)	Gecko
+Browser	Dooble	        Creator	Dooble Team	                                Cost (USD)Free	Yes	GPL	WebKit
